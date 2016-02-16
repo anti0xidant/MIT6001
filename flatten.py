@@ -12,29 +12,31 @@ def flatten(aList):
     # Else (aList is not flat):
     else:
 
-        # Pop the last element off and flatten it.
+        # Pop the last element off.
         lastElement = aList.pop()
-        print 'Popped off last element:', lastElement
-        print 'Flattening lastElement now...'
-        if type(lastElement) == list:
-            lastElement = flatten(lastElement)
-        print 'Last element after flattening...', lastElement
 
-        # Flatten the remaining segment.
+        # Make sure the remaining segment is flat.
         remainingSegment = aList
-        print 'Remaining segment:', remainingSegment
-        print 'Flattening remaining segment now...'
         remainingSegment = flatten(remainingSegment)
-        print 'Remaining segment after flattening...', remainingSegment
 
-        # Piece them together (using extend fnc) and return.
-        if type(lastElement) != list:
-            remainingSegment.append(lastElement)
-        else:
+        # If the last element is a list:
+        if type(lastElement) == list:
+            
+            # Make sure it is flat.
+            lastElement = flatten(lastElement)
+
+            # Attach it to remainingSegment via .extend():
             remainingSegment.extend(lastElement)
-        print 'Pieced together last element and remaining segment to get this:', remainingSegment
-        return remainingSegment
 
+        # Else (last segment is a string or int:
+        else:
+
+            # Attach it to remainingSegment via .append():
+            remainingSegment.append(lastElement)
+
+        # Return ajoined list.
+        return remainingSegment
+            
 def isFlat(aList):
     '''
     aList: a List
@@ -50,12 +52,15 @@ def flattenTest():
     # case[0] = list
     # case[1] = expected
     cases = (([], []),
+             ([[], []], []),
              (['a'], ['a']),
               (['a', 1, 'b', 2], ['a', 1, 'b', 2]),
               ([[]], []),
               ([['a']], ['a']),
               ([['a', 1]], ['a', 1]),
-               ([['a', 1], 3, ['b', 2], 5], ['a', 1, 3, 'b', 2, 5]))
+               ([['a', 1], 3, ['b', 2], 5], ['a', 1, 3, 'b', 2, 5]),
+             ([[[['k'], 'h', 'i', 8, 9], 'z', 'y', 4, 5], 'a', 'b', 1, 2, 5, 7, [], [[['k'], 1, 2], 'a', 1]],
+             ['k', 'h', 'i', 8, 9, 'z', 'y', 4, 5, 'a', 'b', 1, 2, 5, 7, 'k', 1, 2, 'a', 1]))
 
     print 'Testing flatten()'
     print 'Number of test cases:', len(cases), '\n'
