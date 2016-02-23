@@ -62,6 +62,33 @@ def getBinaryRep(n, numDigits):
     #Return result
     return result
 
+def genPowersetRecur(L):
+    #Base case (L is empty):
+    if len(L) == 0:
+
+        #Return a list containing an empty set.
+        return [[]]
+
+    #Else (list is not empty):
+    else:
+
+        #Cut off the right-most tip.
+        tip = L[-1:]
+        
+        #Generate subsets of the remaining segment.
+        subset = genPowersetRecur(L[:-1])
+
+        newsubset = []
+        #For every element of this subset:
+        for element in subset:
+            
+            #Append the right-most tip.
+            newsubset.append(element+tip)
+
+        #Return concatenation of unmodified subset with modified subset:
+        subset.extend(newsubset)
+        return subset
+
 def tGetBinaryRep():
     #case[0] = n
     #case[1] = numDigits
@@ -95,7 +122,7 @@ def tGetBinaryRep():
 
     print 'End of tests.'
         
-def tGenPowerset():
+def tGenPowerset(f):
     #case[0] = L
     #case[1] = expected
     cases = (([], [[]]),
@@ -108,14 +135,15 @@ def tGenPowerset():
 
     for i in range(len(cases)):
         expected = cases[i][1]
-        actual = genPowerset(cases[i][0])
+        actual = f(cases[i][0])
 
         if len(expected) != len(actual):
             result = 'FAILURE'
         else:
             result = 'Success'
-            for a in actual:
-                for e in expected:
+            for e in expected:
+                matched = False
+                for a in actual:
                     if a == e:
                         matched = True
                         break
