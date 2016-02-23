@@ -71,23 +71,22 @@ def genPowersetRecur(L):
 
     #Else (list is not empty):
     else:
-
+        
         #Cut off the right-most tip.
         tip = L[-1:]
         
         #Generate subsets of the remaining segment.
         subset = genPowersetRecur(L[:-1])
 
-        newsubset = []
+        newSubset = []
         #For every element of this subset:
         for element in subset:
             
             #Append the right-most tip.
-            newsubset.append(element+tip)
+            newSubset.append(element+tip)
 
         #Return concatenation of unmodified subset with modified subset:
-        subset.extend(newsubset)
-        return subset
+        return subset+newSubset
 
 def tGetBinaryRep():
     #case[0] = n
