@@ -113,6 +113,7 @@ def tGenPowerset():
         if len(expected) != len(actual):
             result = 'FAILURE'
         else:
+            result = 'Success'
             for a in actual:
                 for e in expected:
                     if a == e:
@@ -121,8 +122,7 @@ def tGenPowerset():
                 if not matched:
                     result = 'FAILURE'
                     break
-            result = 'Success'
-
+            
         print 'Test', i+1, '-', result
         print '    expected:', expected
         print '    actual:', actual
