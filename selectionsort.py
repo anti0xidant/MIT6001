@@ -4,6 +4,11 @@ def selSort(L):
     Assumes L's content is of homogenous type.
     Returns original L with contents sorted in ascending order
     '''
+
+    #Loop Invariant: Elements in the prefix are sorted and
+    #    no element in the prefix are greater than the
+    #    smallest element in the suffix.
+    
     firstElement = 0
     #While suffix still contains elements:
     while firstElement != len(L):
