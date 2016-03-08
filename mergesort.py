@@ -13,9 +13,9 @@ def lessThan(a, b):
 def merge(left, right, compare):
     '''
     Assumes left and right are already sorted.
-    Compare is defines an ordering of elements.
-    Returns a new list containing the same elements from
-    left and right.
+    Compare defines an ordering of elements.
+    Returns a new ordered list containing the same
+    elements from left and right.
     '''
     result = []
     i, j = 0, 0
@@ -59,7 +59,7 @@ def merge(left, right, compare):
 def mergeSortRecur(L, compare):
     '''
     Assumes L is a list.
-    compare defines ordering on elements of L. Default is ascending.
+    compare defines ordering on elements of L.
     Returns a new sorted list containing the same elements as L.
     '''
     #If L is of zero or one elements long, it is sorted.
