@@ -21,6 +21,8 @@ class Hand(object):
 		self.hand = {}
 
 		# Build the hand
+		import random
+
 		numVowels = self.HAND_SIZE / 3
 
 		for i in range(numVowels):
@@ -43,3 +45,22 @@ class Hand(object):
 		for char in handString:
 			self.hand[char] = self.hand.get(char, 0) + 1
 
+	def calculateLen(self):
+		'''
+		Calculate length of the hand.
+		'''
+		sum = 0
+		for i in self.hand:
+			sum += self.hand[i]
+		return sum
+
+	def __str__(self):
+		'''
+		Displays string representation of hand.
+		'''
+		output = ''
+		keys = self.hand.keys()
+		keys.sort()
+		for letter in keys:
+			output += self.hand[letter] * letter
+		return otuput
