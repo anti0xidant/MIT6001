@@ -64,3 +64,29 @@ class Hand(object):
 		for letter in keys:
 			output += self.hand[letter] * letter
 		return otuput
+
+	def update(self, word):
+		'''
+		Does not assume that self.hand has all the letters in word.
+
+		Updates the hand if self.hand has all the letters to make
+		the word. Removes the letters from self.hand that are
+		used to spell the word.
+
+		Returns True if the word was able to be spelled. False otherwise.
+
+		word(str) = word to spell
+		returns: boolean value representing success of spelling word
+		'''
+		handCopy = dict(self.hand)
+
+		for letter in word:
+			try:
+				if handCopy[letter] > 0:
+					handCopy[letter] -= 1
+				else:
+					return False
+			except:
+				return False
+		
+		return True
