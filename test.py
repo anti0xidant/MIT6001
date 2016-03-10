@@ -1,10 +1,9 @@
-class Student(object):
-    def __init__(self):
-        self.grades = []
+class Spell(object):
+    def __init__(self, name):
+        self.name = name
 
-    def getGrades(self):
-        for g in self.grades:
-            yield g
-
-    def addGrade(self, grade):
-        self.grades.append(grade)
+    def getName(self):
+        return self.name
+    
+    def sayName():
+        print 'My name is blahblah'
