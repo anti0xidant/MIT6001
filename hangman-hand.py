@@ -63,7 +63,7 @@ class Hand(object):
 		keys.sort()
 		for letter in keys:
 			output += self.hand[letter] * letter
-		return otuput
+		return output
 
 	def update(self, word):
 		'''
@@ -88,5 +88,7 @@ class Hand(object):
 					return False
 			except:
 				return False
+			
+		self.hand = handCopy
 		
 		return True
