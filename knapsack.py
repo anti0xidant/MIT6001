@@ -28,35 +28,35 @@ def buildTree(current, todo):
     '''
     Builds binary decision tree for classic knapsack problem
 
-    current: value of the current node
-    todo: list of items to add
+    current: list of decisions to produce current node
+    todo: list of decisions to consider
     '''
     #If there is nothing left todo:
-
+    if len(todo) == 0:
 
         #Return the current binary node
-
+        return binaryNode(current)
 
     #Else (things left todo):
-
+    else:
 
         #Build left branch (includes next todo item)
-
+        leftBranch = buildTree(current+todo[0], todo[1:])
 
         #Build right branch (excludes next todo item)
-
+        rightBranch = buildTree(current, todo[1:])
 
         #Create the current node
-
+        here = binaryNode(current)
 
         #Attach left branch to current node
-
+        here.setLeft(leftBranch)
 
         #Attahc right branch to current node
-
+        here.setRight(rightBranch)
 
         #Return the current node
-    
+        return here
 
 def DFS(root, findValue, constraint):
     raise NotImplementedError
