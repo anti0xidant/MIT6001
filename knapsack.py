@@ -25,7 +25,38 @@ class binaryNode(object, value):
         return str(self.value)
 
 def buildTree(current, todo):
-    raise NotImplementedError
+    '''
+    Builds binary decision tree for classic knapsack problem
+
+    current: value of the current node
+    todo: list of items to add
+    '''
+    #If there is nothing left todo:
+
+
+        #Return the current binary node
+
+
+    #Else (things left todo):
+
+
+        #Build left branch (includes next todo item)
+
+
+        #Build right branch (excludes next todo item)
+
+
+        #Create the current node
+
+
+        #Attach left branch to current node
+
+
+        #Attahc right branch to current node
+
+
+        #Return the current node
+    
 
 def DFS(root, findValue, constraint):
     raise NotImplementedError
