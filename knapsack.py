@@ -72,14 +72,25 @@ def buildTree(current, todo):
         #Return the current node
         return here
 
-def DFS(root, constraint):
+def weightLimit(node, x):
+    '''
+    Analyzes the weight of a node.
+
+    Returns True if weight does not surpass 10 lbs. False otherwise
+    '''
+    weight = 0
+    for item in node.value:
+        weight += item[1]
+    return weight <= x
+
+def DFS(root, pounds, constraint = weightLimit):
     '''
     Depth-first-search of binary decision tree of knapsack problem.
-    Returns the node which contains the best solution
+    Returns a tuple which contains best solution and number of nodes visited.
 
     root: (binaryNode), root node
-    findValue: (fnc), function for determining value of current node
-    constraint: (fnc), function to determine if the current node is legal
+    pounds: max weight of knapsack
+    constraint: (fnc), determines if node exceeds max weight
     '''
     #Initialize stack and best solution variable
     stack = [root]
@@ -93,7 +104,7 @@ def DFS(root, constraint):
         nodesVisited += 1
 
         #If the top element is legal:
-        if constraint(stack[0]):
+        if constraint(stack[0], pounds):
 
             #If the best node hasn't been set:
             if bestSolution == None:
@@ -130,21 +141,66 @@ def DFS(root, constraint):
             
     return (bestSolution, nodesVisited)
 
-def BFS(root, findValue, constraint):
-    raise NotImplementedError
-
-def weightLimit10(node):
+def BFS(root, pounds, constraint = weightLimit):
     '''
-    Analyzes the weight of a node.
+    Breadth first search of knapsack decision tree.
+    Returns a tuple containing best node and number of nodes visited.
 
-    Returns True if weight does not surpass 10 lbs. False otherwise
+    root: where in the tree to begin searching
+    pounds: max weight of knapsack
+    constraint: function which determines if node exceeds the max weight
     '''
-    weight = 0
-    for item in node.value:
-        weight += item[1]
-    return weight <= 10
+    #Initialize queue, best node, and number of nodes visisted counter
+    queue = [root]
+    bestNode = None
+    numberVisited = 0
+    
+    #While there are still things left to consider in the queue
+    while len(queue) > 0:
 
+        #Increment visit counter
+        numberVisited += 1
+    
+        #If the node isn't overweight
+        if constraint(queue[0], pounds):
 
+            #If there isn't a best node yet:
+            if bestNode == None:
+
+                #Set this as the best node
+                bestNode = queue[0]
+
+            #Elif this node is better than the current best
+            elif bestNode < queue[0]:
+
+                #Set this as the best node
+                bestNode = queue[0]
+
+            #Remove the node
+            current = queue.pop(0)
+    
+            #If left child exists
+            if current.getLeft() != None:
+
+                #Add him to the end of the line
+                queue.append(current.getLeft())
+
+            #If right child exists
+            if current.getRight() != None:
+
+                #Add him to the end of the line
+                queue.append(current.getRight())
+
+        #Else (overweight node)
+        else:
+
+            #Remove the node
+            queue.pop(0)
+
+    #Return (best node, counter)
+    return (bestNode, numberVisited)
+
+    
 #Items to steal
 #(value, weight)
 stealable = [(1, 5),
@@ -155,7 +211,7 @@ stealable = [(1, 5),
              (5, 5),
              (4, 4),
              (2, 2),
-             (1, 1),]
+             (1, 1)]
 
 #Test Cases
 
