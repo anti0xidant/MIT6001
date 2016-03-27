@@ -55,7 +55,7 @@ def buildTree(current, todo):
     else:
 
         #Build left branch (includes next todo item)
-        leftBranch = buildTree(current+todo[0], todo[1:])
+        leftBranch = buildTree(current+[todo[0]], todo[1:])
 
         #Build right branch (excludes next todo item)
         rightBranch = buildTree(current, todo[1:])
@@ -84,9 +84,13 @@ def DFS(root, constraint):
     #Initialize stack and best solution variable
     stack = [root]
     bestSolution = None
+    nodesVisited = 0
 
     #While there are nodes left to look at in the stack:
     while len(stack) > 0:
+
+        #Increment nodesVisited counter
+        nodesVisited += 1
 
         #If the top element is legal:
         if constraint(stack[0]):
@@ -124,7 +128,7 @@ def DFS(root, constraint):
             #Remove the top element
             stack.pop(0)
             
-    return bestSolution
+    return (bestSolution, nodesVisited)
 
 def BFS(root, findValue, constraint):
     raise NotImplementedError
