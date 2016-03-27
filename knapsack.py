@@ -3,7 +3,7 @@
 #decision trees. 0/1 Knapsack problem
 #########
 
-class binaryNode(object, value):
+class binaryNode(object):
     def __init__(self, value):
         '''
         value: a list of items represented as the tuple (value, weight)
@@ -128,3 +128,65 @@ def DFS(root, constraint):
 
 def BFS(root, findValue, constraint):
     raise NotImplementedError
+
+def weightLimit10(node):
+    '''
+    Analyzes the weight of a node.
+
+    Returns True if weight does not surpass 10 lbs. False otherwise
+    '''
+    weight = 0
+    for item in node.value:
+        weight += item[1]
+    return weight <= 10
+
+
+#Items to steal
+#(value, weight)
+stealable = [(1, 5),
+             (2, 4),
+             (3, 3),
+             (4, 2),
+             (5, 1),
+             (5, 5),
+             (4, 4),
+             (2, 2),
+             (1, 1),]
+
+#Test Cases
+
+def T_binaryNodeValue():
+    '''
+    Tests the lt function of binaryNode
+    '''
+    testCases = [([], [], False),
+                 ([], [(1, 5)], True),
+                 ([(1, 5)], [], False),
+                 ([(1, 5)], [(1, 5)], False),
+                 ([(1, 5), (2, 4), (3, 3)], [(5, 5), (2, 2)], True),
+                 ([(5, 1), (4, 2), (5, 5), (4, 4), (3, 3)], [(1, 5), (1, 1), (2, 4)], False)]
+
+    print 'Teseting < operator of binaryNode'
+    print 'Initializing two binaryNode objects...'
+    node1 = binaryNode(None)
+    node2 = binaryNode(None)
+    print 'Beginning tests...'
+    successCount = 0
+    for i in range(len(testCases)):
+        node1.value = testCases[i][0]
+        node2.value = testCases[i][1]
+        expected = testCases[i][2]
+        actual = node1 < node2
+
+        if actual == expected:
+            result = 'Success'
+            successCount += 1
+        else:
+            result = 'FAILURE'
+            
+        print 'Test', i+1, '-', result
+        print '    expected:', expected
+        print '    actual:', actual
+
+    print 'End of tests.'
+    print 'Result:', str(successCount) + '/' + str(len(testCases))
